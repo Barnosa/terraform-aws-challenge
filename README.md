@@ -1,54 +1,44 @@
-# Projeto Terraform - Infraestrutura na AWS
+ ##Tarefa -1
+Este projeto utiliza o Terraform para provisionar uma infraestrutura na AWS, conforme o código fornecido pela empresa. A seguir, estão os principais recursos e componentes criados pelo código:
+Descrição Técnica 
+Provedor AWS
+Provider: Configura o provedor AWS na região us-east-1.
+Variáveis
+projeto: Nome do projeto (default: VExpenses).
+candidato: Nome do candidato (default: SeuNome).
+Recursos Criados
+Chave Privada
+tls_private_key.ec2_key: Gera uma chave privada RSA para acesso à instância EC2.
+Key Pair
+aws_key_pair.ec2_key_pair: Cria um par de chaves AWS utilizando a chave pública gerada anteriormente.
+VPC (Virtual Private Cloud)
+aws_vpc.main_vpc: Cria uma VPC com o bloco CIDR 10.0.0.0/16, com suporte a DNS habilitado.
+Subnet
+aws_subnet.main_subnet: Cria uma sub-rede na VPC com o bloco CIDR 10.0.1.0/24, na zona de disponibilidade us-east-1a.
+Internet Gateway
+aws_internet_gateway.main_igw: Cria um gateway de internet para a VPC.
+Tabela de Rotas
+aws_route_table.main_route_table: Cria uma tabela de rotas que direciona o tráfego para o gateway de internet.
+Associação da Tabela de Rotas
+aws_route_table_association.main_association: Associa a sub-rede à tabela de rotas.
+Grupo de Segurança
+aws_security_group.main_sg: Cria um grupo de segurança que permite acesso SSH (porta 22) de qualquer lugar e permite todo o tráfego de saída.
+AMI (Amazon Machine Image)
+data.aws_ami.debian12: Seleciona a AMI mais recente do Debian 12.
+Instância EC2
+aws_instance.debian_ec2: Provisiona uma instância EC2 do tipo t2.micro na sub-rede criada, com o AMI Debian 12 e configuração para acesso via chave SSH. O script de inicialização atualiza o sistema.
+Saídas
+Chave Privada: A chave privada gerada para acesso à instância EC2 (sensível).
+IP Público da EC2: O endereço IP público atribuído à instância EC2.
 
-## 1. Análise Técnica do Código Terraform
 
-Este projeto utiliza Terraform para provisionar uma infraestrutura básica na AWS, que inclui os seguintes componentes:
 
-1. **Provedor AWS**: Define a região `us-east-1` onde os recursos serão criados.
-  
-2. **Variáveis**:
-   - `projeto`: Nome do projeto.
-   - `candidato`: Nome do candidato.
+Tarefa 2: Provisionamento de Instância EC2 com Terraform
+Descrição
+Esta tarefa utiliza o Terraform para provisionar uma infraestrutura básica na AWS que inclui:
 
-3. **Chave Privada TLS**: 
-   - Um par de chaves RSA é gerado para acesso SSH à instância EC2.
-
-4. **VPC**: 
-   - Criação de uma VPC com CIDR `10.0.0.0/16`.
-
-5. **Sub-rede**: 
-   - Criação de uma sub-rede com CIDR `10.0.1.0/24`.
-
-6. **Gateway de Internet**: 
-   - Um gateway é criado para permitir acesso à internet.
-
-7. **Tabela de Roteamento**: 
-   - A tabela de roteamento é configurada para direcionar o tráfego da sub-rede para o gateway de internet.
-
-8. **Grupo de Segurança**: 
-   - Grupo que permite acesso SSH a partir de um IP específico e permite todo o tráfego de saída.
-
-9. **AMI**: 
-   - Busca pela imagem mais recente do Debian 12 para a instância EC2.
-
-10. **Instância EC2**: 
-    - Criação de uma instância EC2 usando a AMI do Debian 12 e tipo `t2.micro`.
-    - Configuração para ter um IP público e associar-se ao grupo de segurança.
-    - O Nginx é instalado automaticamente durante a inicialização.
-
-## 2. Modificação e Melhoria do Código Terraform
-
-### Melhorias de Segurança
-
-- O código foi modificado para restringir o acesso SSH a um IP específico, aumentando a segurança do ambiente.
-
-### Automação da Instalação do Nginx
-
-- A instância EC2 é configurada para instalar e iniciar o servidor Nginx automaticamente utilizando o seguinte script `user_data`:
-
-```bash
-#!/bin/bash
-apt-get update
-apt-get install -y nginx
-systemctl start nginx
-systemctl enable nginx
+Uma VPC configurada com uma sub-rede.
+Um Internet Gateway para permitir o tráfego da internet.
+Uma instância EC2 rodando Debian 12 com acesso SSH habilitado.
+Um par de chaves SSH gerado para a conexão com a instância.
+Um grupo de segurança que permite acesso SSH de qualquer lugar e libera todo o tráfego de saída.
