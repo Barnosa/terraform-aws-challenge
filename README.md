@@ -1,4 +1,4 @@
-Terraform AWS Infrastructure Provisioning
+
 Este repositório contém código Terraform para provisionar uma infraestrutura básica na AWS, distribuída em duas tarefas principais. O foco é o provisionamento de uma VPC, instância EC2, chaves de acesso SSH, e outros componentes essenciais para o funcionamento de uma aplicação em ambiente de desenvolvimento.
 
 Tarefa 1: Provisionamento de Infraestrutura AWS
